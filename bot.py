@@ -1,5 +1,7 @@
+import json
 import logging
 
+import requests
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
 # Enables logging
@@ -9,8 +11,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Gets the logging object
 logger = logging.getLogger(__name__)
 
-# Define a few command handlers. These usually take the two arguments bot and
-# update. Error handlers also receive the raised TelegramError object in error.
+# URL to call external API
+PREDICT_URL = 'http://localhost:8080'
 
 
 def start(update, context):
@@ -29,19 +31,52 @@ def help(update, context):
     update.message.reply_text('Olá. Sou um comando /help!')
 
 
+def predict(message):
+    # Defines the data structure
+    data = {
+        'message': message
+    }
+
+    # Transform object into json
+    payload = json.dumps(data)
+
+    # Tries to perform the request
+    try:
+        # Performs the post
+        r = requests.post(url, data=payload)
+
+        # Gets the response
+        response = json.loads(r.text)
+
+        # Gathers the result key
+        result = response['result']
+
+        return result
+
+    except:
+        raise ConnectionError
+
+
 def echo(update, context):
     """Echo the user message.
 
     """
 
+    # Calls the predict method
+    pred = predict(update.message.text)
+
+    # Logs that prediction was successfull
     logger.info(f'Message sent: {update.message.text}.')
-    update.message.reply_text(update.message.text)
+
+    # Sends the message back
+    update.message.reply_text(pred)
 
 
 def error(update, context):
     """Log Errors caused by Updates.
 
     """
+
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
