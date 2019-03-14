@@ -20,7 +20,7 @@ PORT=8080
 MODEL_PATH = '../models/'
 
 class DefaultHandler(RequestHandler):
-    """
+    """DefaultHandler 
     """
 
     def initialize(self, **kwargs):

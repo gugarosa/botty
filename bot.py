@@ -43,7 +43,7 @@ def predict(message):
     # Tries to perform the request
     try:
         # Performs the post
-        r = requests.post(url, data=payload)
+        r = requests.post(PREDICT_URL, data=payload)
 
         # Gets the response
         response = json.loads(r.text)
