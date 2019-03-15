@@ -1,3 +1,4 @@
+import configparser
 import logging
 
 from telegram.ext import Filters, MessageHandler, Updater
@@ -12,7 +13,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-def start_bot():
+def start_bot(key):
     """Main process to initiate a customized bot needs.
 
     """
@@ -20,8 +21,7 @@ def start_bot():
     logger.info(f'Starting the bot ...')
 
     # Initializing base class with Bot's token
-    updater = Updater(
-        "707625587:AAHJ4oox7UfFd1DIgo3Vrbri8eJRvfqNRoU", use_context=True)
+    updater = Updater(key, use_context=True)
 
     # Getting the dispatcher to attach new handlers
     dp = updater.dispatcher
@@ -43,5 +43,14 @@ def start_bot():
 
 
 if __name__ == '__main__':
+    # Initializing configuration object
+    config = configparser.ConfigParser()
+
+    # Parsing a new config
+    config.read('config.ini')
+
+    # Gathers the key
+    key = config.get('BOT', 'TELEGRAM_KEY')
+
     # Initialize bot
-    start_bot()
+    start_bot(key)

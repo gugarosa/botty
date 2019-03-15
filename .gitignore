@@ -5,6 +5,9 @@
 # Ubuntu's editor temp files
 **/*.*~
 
+# Configuration file
+config.ini
+
 # Downloaded data
 data/**/*
 
