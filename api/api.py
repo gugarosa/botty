@@ -1,75 +1,42 @@
 import logging
 
-from tornado import escape
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
-from tornado.web import Application, RequestHandler
+from tornado.web import Application
 
-import spacy
+from handlers.spacy import SpacyHandler
 
-# Defining logs format
-FORMATTER = "%(asctime)s - %(name)s — %(levelname)s — %(message)s"
+from utils import loader
 
-# Defines basic logging level
-logging.basicConfig(level=logging.DEBUG, format=FORMATTER)
+# Enables logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.DEBUG)
+
+# Gets the logging object
+logger = logging.getLogger(__name__)
 
 # Port constant
-PORT=8080
+PORT = 8080
 
 # Path to the models
 MODEL_PATH = '../models/'
 
-class DefaultHandler(RequestHandler):
-    """DefaultHandler 
-    """
-
-    def initialize(self, **kwargs):
-        """
-        """
-
-        # Initializes the property to model
-        self.model = kwargs['model']
-
-    def post(self):
-        """
-        """
-
-        # Decode the body looking for information
-        body = escape.json_decode(self.request.body)
-
-        # Parsing the message
-        message = body.get('message', None)
-
-        # Verifies if its a string
-        if not isinstance(message, str):
-            # Raises error if not
-            raise RuntimeError('message should be a string')
-        
-        # Tries to actually call the model's prediction
-        try:
-            # Predicts the message using desired model
-            predict = model(message)
-            
-            # Creates a list holding the results
-            result = [f'{token.text} - {token.pos_} - {token.dep_}' for token in predict]
-
-            # Writes the final result back
-            self.write(dict(result=result))
-        except:
-            # If not possible, raises an error
-            raise RuntimeError('Failed to perform prediction.')
-
 
 class Server(Application):
-    """
+    """A class to hold the actual server class.
+
     """
 
-    def __init__(self, model):
-        """
+    def __init__(self, spacy_model):
+        """Initializes the application.
+
+        Args:
+            spacy_model (Spacy): A Spacy's already loaded model.
+
         """
 
         # Default API handlers
-        handlers = [(r'/', DefaultHandler, dict(model=model))]
+        handlers = [(r'/api/spacy/', SpacyHandler, dict(model=spacy_model))]
 
         # Bootstrap the Application class
         Application.__init__(self, handlers, debug=True, autoreload=True)
@@ -80,7 +47,7 @@ if __name__ == '__main__':
     logging.debug('Loading model ...')
 
     # Actually calling spacing and loading the model
-    model = spacy.load('pt_core_news_sm')
+    spacy_model = loader.load_spacy()
 
     # Logging important information
     logging.debug('Starting server ...')
@@ -91,7 +58,7 @@ if __name__ == '__main__':
         logging.info(f'Port: {PORT}')
 
         # Creates an application
-        app = HTTPServer(Server(model))
+        app = HTTPServer(Server(spacy_model))
 
         # Servers the application on desired port
         app.listen(PORT)

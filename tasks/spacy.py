@@ -3,7 +3,7 @@ import json
 import requests
 
 # URL to call Spacy's API
-SPACY_API = 'http://localhost:8080'
+SPACY_API = 'http://localhost:8080/api/spacy/'
 
 
 def pos_tagger(message):
