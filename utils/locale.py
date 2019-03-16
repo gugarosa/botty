@@ -1,7 +1,17 @@
+import configparser
 import json
 
+# Initializing configuration object
+config = configparser.ConfigParser()
+
+# Parsing a new config
+config.read('config.ini')
+
+# Gets the key from bot's language
+key = config.get('BOT', 'LANGUAGE')
+
 # Defines the input language
-INPUT_LANG = 'utils/lang/pt'
+INPUT_LANG = 'utils/lang/' + key
 
 def get():
     """Parses an input json and gather its content.
