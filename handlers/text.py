@@ -15,10 +15,12 @@ def pos_tagger(update, context):
 
     """
     
-    logger.debug(f'Handling part-of-speech tagging ...')
+    logger.info(f'Handling part-of-speech tagging ...')
 
     # Calling desired task, in this case a POS tagger from Spacy's API
     pos_tag = spacy.pos_tagger(update.message.text)
+
+    logger.info(f'Result: {pos_tag}')
 
     # Sending the API's call response back to user
     update.message.reply_text(pos_tag)

@@ -21,7 +21,7 @@ def save(update, context):
 
     """
 
-    logger.debug(f'Handling voice saving ...')
+    logger.info(f'Handling voice saving ...')
 
     # Gathers the voice update
     voice = update.message.voice
@@ -32,7 +32,7 @@ def save(update, context):
     # This will get the actual voice file and download it to an .ogg extension
     voice.get_file().download(voice_file)
 
-    logger.debug(f'Voice saved to {voice_file}.')
+    logger.info(f'Voice saved to {voice_file}')
 
     # Replying back to user to hold for response
     update.message.reply_text(lang['VOICE_SAVE_RESPONSE'])
