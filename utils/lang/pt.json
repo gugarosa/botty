@@ -1,3 +1,7 @@
 {
+    "TEXT_FIRST_RESPONSE": "Olá. Seus primeiros contatos sempre serão realizados comigo. O que deseja?",
+    "TEXT_LAST_RESPONSE": "Quando precisar, é só voltar a falar comigo.",
+    "TEXT_INTENT_FALLBACK": "Desculpe, não entendi. Por favor, fale de novo comigo.",
+    "TEXT_INTENT_HELLO": "Olá! O que deseja?",
     "VOICE_SAVE_RESPONSE": "Voz recebida. Por favor aguarde, estou pensando ..."
 }

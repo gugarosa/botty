@@ -1,9 +1,9 @@
 import configparser
 import logging
 
-from telegram.ext import Filters, MessageHandler, Updater
+from telegram.ext import CommandHandler, ConversationHandler, Filters, MessageHandler, Updater
 
-from handlers import error, text, voice
+from handlers import command, error, state, text, voice
 
 # Enables logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -26,8 +26,20 @@ def start_bot(key):
     # Getting the dispatcher to attach new handlers
     dp = updater.dispatcher
 
+    # Add conversation handler to handle bot's states
+    dp.add_handler(
+        ConversationHandler(
+            entry_points = [MessageHandler(Filters.text, state.await_intent, pass_user_data=True)],
+            states = {
+                'AWAIT_INTENT': [MessageHandler(Filters.text, state.await_intent, pass_user_data=True)]
+            },
+            fallbacks = [CommandHandler('cancel', command.cancel)]
+        )
+    )
+
     # Part-of-speech tagging when receiving new
-    dp.add_handler(MessageHandler(Filters.text, text.pos_tagger))
+    #dp.add_handler(MessageHandler(Filters.text, text.intention), 0)
+    #dp.add_handler(MessageHandler(Filters.text, text.pos_tagger), 0)
 
     # Saving a newly voice update
     dp.add_handler(MessageHandler(Filters.voice, voice.save))
