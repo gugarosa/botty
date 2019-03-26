@@ -1,7 +1,7 @@
 import configparser
 import logging
 
-from telegram.ext import CommandHandler, ConversationHandler, Filters, MessageHandler, Updater
+from telegram.ext import CommandHandler, ConversationHandler, Filters, MessageHandler, RegexHandler, Updater
 
 from handlers import command, error, state, text, voice
 
@@ -29,17 +29,23 @@ def start_bot(key):
     # Add conversation handler to handle bot's states
     dp.add_handler(
         ConversationHandler(
-            entry_points = [MessageHandler(Filters.text, state.await_intent, pass_user_data=True)],
+            entry_points = [MessageHandler(Filters.text, state.entry, pass_user_data=True)],
             states = {
-                'AWAIT_INTENT': [MessageHandler(Filters.text, state.await_intent, pass_user_data=True)]
+                'AWAIT_OPTION': [MessageHandler(Filters.regex('^(Cliente)$'), state.choice, pass_user_data=True)],
+                'CLIENTE': [MessageHandler(Filters.text, state.client, pass_user_data=True)]
             },
-            fallbacks = [CommandHandler('cancel', command.cancel)]
+            fallbacks = [
+                MessageHandler(Filters.regex('^(Finalizar)$'), command.end, pass_user_data=True),
+                CommandHandler('end', command.end)
+            ]
         )
     )
 
     # Part-of-speech tagging when receiving new
     #dp.add_handler(MessageHandler(Filters.text, text.intention), 0)
     #dp.add_handler(MessageHandler(Filters.text, text.pos_tagger), 0)
+
+    #dp.add_handler(CommandHandler('set_client', command.set_client))
 
     # Saving a newly voice update
     dp.add_handler(MessageHandler(Filters.voice, voice.save))
