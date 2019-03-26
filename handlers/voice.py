@@ -2,6 +2,8 @@ import logging
 
 from utils import locale
 
+from telegram.ext import ConversationHandler
+
 # Path to downkoad saved voice files
 DOWNLOAD_PATH = 'data/voices/'
 
@@ -36,3 +38,11 @@ def save(update, context):
 
     # Replying back to user to hold for response
     update.message.reply_text(lang['VOICE_SAVE_RESPONSE'])
+
+    # Replying voice back
+    update.message.reply_voice(voice)
+
+    # Ending conversation
+    update.message.reply_text(f'Quando precisar, é só voltar a falar comigo.')
+
+    return ConversationHandler.END

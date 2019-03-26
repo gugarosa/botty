@@ -3,5 +3,5 @@
     "TEXT_LAST_RESPONSE": "Quando precisar, é só voltar a falar comigo.",
     "TEXT_INTENT_FALLBACK": "Desculpe, não entendi. Por favor, fale de novo comigo.",
     "TEXT_INTENT_HELLO": "Olá! O que deseja?",
-    "VOICE_SAVE_RESPONSE": "Voz recebida. Por favor aguarde, estou pensando ..."
+    "VOICE_SAVE_RESPONSE": "Voz recebida. Enviando de volta ..."
 }

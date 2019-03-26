@@ -1,5 +1,6 @@
 import logging
 
+from telegram import ReplyKeyboardRemove
 from telegram.ext import ConversationHandler
 
 from utils import locale
@@ -17,8 +18,10 @@ def end(update, context):
 
     logging.info('Current interaction ended.')
 
+    keyboard = ReplyKeyboardRemove()
+
     # Replying a message to cancel the current interaction
-    update.message.reply_text(lang['TEXT_LAST_RESPONSE'])
+    update.message.reply_text(lang['TEXT_LAST_RESPONSE'], reply_markup=keyboard)
 
     return ConversationHandler.END
 

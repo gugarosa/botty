@@ -31,8 +31,9 @@ def start_bot(key):
         ConversationHandler(
             entry_points = [MessageHandler(Filters.text, state.entry, pass_user_data=True)],
             states = {
-                'AWAIT_OPTION': [MessageHandler(Filters.regex('^(Cliente)$'), state.choice, pass_user_data=True)],
-                'CLIENTE': [MessageHandler(Filters.text, state.client, pass_user_data=True)]
+                'AWAIT_OPTION': [MessageHandler(Filters.regex('^(Cliente|Voz)$'), state.choice, pass_user_data=True)],
+                'CLIENTE': [MessageHandler(Filters.text, state.client, pass_user_data=True)],
+                'VOZ': [MessageHandler(Filters.voice, voice.save, pass_user_data=True)]
             },
             fallbacks = [
                 MessageHandler(Filters.regex('^(Finalizar)$'), command.end, pass_user_data=True),

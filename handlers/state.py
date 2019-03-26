@@ -9,7 +9,7 @@ from tasks import mock
 logger = logging.getLogger(__name__)
 
 # All possible interaction options
-reply_keyboard = [['Cliente', 'Finalizar']]
+reply_keyboard = [['Cliente', 'Voz', 'Finalizar']]
 
 # Creating a markup to hold options
 markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
@@ -38,6 +38,10 @@ def choice(update, context):
     if option == 'CLIENTE':
         # Replies text according to chosen option
         update.message.reply_text('Por favor, digite o nome do cliente.')
+
+    elif option == 'VOZ':
+        # Replies text according to chosen option
+        update.message.reply_text('Por favor, envie uma mensagem de voz.')
 
     logger.info(f'Redirecting to state: {option}')
 
