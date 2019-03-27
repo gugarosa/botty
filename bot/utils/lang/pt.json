@@ -1,0 +1,10 @@
+{
+    "HANDLER_ENTRY": "Cliente,Voz,Finalizar",
+    "HANDLER_ENTRY_OPTIONS_1": "Olá ",
+    "HANDLER_ENTRY_OPTIONS_2": "! Por favor, escolha alguma opção.",
+    "FALLBACK_KEYBOARD_END": "Espero ter te ajudado! Você terminou sua sessão.",
+    "FALLBACK_KEYBOARD_REGEX": "^(Finalizar)",
+    "HANDLER_COMMAND_END": "A sessão foi finalizada. Quando precisar, é só voltar a falar comigo.",
+    "STATE_AWAIT_OPTIONS_REGEX": "^(Cliente|Voz)$",
+    "VOICE_SAVE_RESPONSE": "Voz recebida. Enviando de volta ..."
+}

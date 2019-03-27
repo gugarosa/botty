@@ -8,26 +8,23 @@ from tasks import mock
 # Gets the logging object
 logger = logging.getLogger(__name__)
 
-# All possible interaction options
-reply_keyboard = [['Cliente', 'Voz', 'Finalizar']]
+def option(update, context):
+    """Handles a chosen option by the user.
 
-# Creating a markup to hold options
-markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    Args:
+        update (Update): An update object, basically holding vital information from a new user interaction.
+        context (CallbackContext): A context object, if additional information is needed.
 
+    """
 
-def entry(update, context):
-    logger.info(f'New interaction message: {update.message.text}')
+    # Gathering user's choice
+    option = (update.message.text).upper()
 
-    # Gathering user's first name
-    first_name = update.message.chat.first_name
+    logger.info(f'User option: {option}')
 
-    # Replying initial text
-    update.message.reply_text(
-        f'Olá {first_name}! Por favor, escolha alguma opção.', reply_markup=markup)
-
-    logger.info(f'Awaiting user option ...')
-
-    return 'AWAIT_OPTION'
+    # Checks the chosen option
+    if option == 'CLIENTE':
+        
 
 
 def choice(update, context):

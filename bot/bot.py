@@ -1,9 +1,11 @@
 import configparser
 import logging
 
-from telegram.ext import CommandHandler, ConversationHandler, Filters, MessageHandler, RegexHandler, Updater
+from telegram.ext import (CommandHandler, ConversationHandler, Filters,
+                          MessageHandler, RegexHandler, Updater)
 
-from handlers import command, error, state, text, voice
+from handlers import command, entry, error, fallback, state
+from utils import locale
 
 # Enables logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -11,6 +13,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 # Gets the logging object
 logger = logging.getLogger(__name__)
+
+# Gathering locale strings
+lang = locale.get()
 
 
 def start_bot(key):
@@ -29,27 +34,18 @@ def start_bot(key):
     # Add conversation handler to handle bot's states
     dp.add_handler(
         ConversationHandler(
-            entry_points = [MessageHandler(Filters.text, state.entry, pass_user_data=True)],
+            entry_points = [MessageHandler(Filters.text, entry.options, pass_user_data=True)],
             states = {
-                'AWAIT_OPTION': [MessageHandler(Filters.regex('^(Cliente|Voz)$'), state.choice, pass_user_data=True)],
-                'CLIENTE': [MessageHandler(Filters.text, state.client, pass_user_data=True)],
-                'VOZ': [MessageHandler(Filters.voice, voice.save, pass_user_data=True)]
+                'AWAIT_OPTIONS': [MessageHandler(Filters.regex(lang['STATE_AWAIT_OPTIONS_REGEX']), state.option, pass_user_data=True)],
+                # 'CLIENTE': [MessageHandler(Filters.text, state.client, pass_user_data=True)],
+                # 'VOZ': [MessageHandler(Filters.voice, state.save, pass_user_data=True)]
             },
             fallbacks = [
-                MessageHandler(Filters.regex('^(Finalizar)$'), command.end, pass_user_data=True),
+                MessageHandler(Filters.regex(lang['FALLBACK_KEYBOARD_REGEX']), fallback.keyboard, pass_user_data=True),
                 CommandHandler('end', command.end)
             ]
         )
     )
-
-    # Part-of-speech tagging when receiving new
-    #dp.add_handler(MessageHandler(Filters.text, text.intention), 0)
-    #dp.add_handler(MessageHandler(Filters.text, text.pos_tagger), 0)
-
-    #dp.add_handler(CommandHandler('set_client', command.set_client))
-
-    # Saving a newly voice update
-    dp.add_handler(MessageHandler(Filters.voice, voice.save))
 
     # Creates an error logging
     dp.add_error_handler(error.log)
