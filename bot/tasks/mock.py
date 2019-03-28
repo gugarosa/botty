@@ -22,6 +22,7 @@ def check_client(message):
         'token': '1R-2K621skKO2PnZYDqHsg',
         'data': {
             'id': message,
+            'avatar': 'personAvatar',
             'email': 'internetEmail',
             'phone': 'phoneHome'
         }

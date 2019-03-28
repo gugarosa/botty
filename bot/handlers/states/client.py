@@ -1,5 +1,7 @@
 import logging
 
+from telegram import InputMediaPhoto
+
 from handlers import fallback
 from tasks import mock
 from utils import constants as c
@@ -36,9 +38,12 @@ def state(update, context):
 
     logger.info(f'Client found. Replying its information ...')
 
-    # Replying correct result
+    # Replying client's text
     update.message.reply_html(c.CLIENT_RESPONSE.format(
         client=client, email=result['email'], phone=result['phone']))
+
+    # Replying client's image
+    update.message.reply_photo(result['avatar'])
 
     # Ending conversation
     return fallback.end(update, context)
