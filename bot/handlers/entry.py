@@ -18,6 +18,7 @@ entries = [lang['HANDLER_ENTRY'].split(',')]
 # Creating a markup to hold options
 markup = ReplyKeyboardMarkup(entries, one_time_keyboard=True)
 
+
 def options(update, context):
     """Handles first options for the user's interaction.
 
@@ -33,7 +34,8 @@ def options(update, context):
     first_name = update.message.chat.first_name
 
     # Composing a text reply to user
-    reply = lang['HANDLER_ENTRY_OPTIONS_1'] + first_name + lang['HANDLER_ENTRY_OPTIONS_2']
+    reply = lang['HANDLER_ENTRY_OPTIONS_1'] + \
+        first_name + lang['HANDLER_ENTRY_OPTIONS_2']
 
     # Replying text and a keyboard with options
     update.message.reply_text(reply, reply_markup=markup)

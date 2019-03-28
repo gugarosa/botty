@@ -21,7 +21,7 @@ def keyboard(update, context):
 
     """
 
-    logging.info('Current interaction ended by keyboard.')
+    logging.info('Current interaction ended.')
 
     # If there is any reply keyboard, we need to remove
     keyboard_removal = ReplyKeyboardRemove()

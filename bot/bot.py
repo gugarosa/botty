@@ -34,15 +34,21 @@ def start_bot(key):
     # Add conversation handler to handle bot's states
     dp.add_handler(
         ConversationHandler(
-            entry_points = [MessageHandler(Filters.text, entry.options, pass_user_data=True)],
-            states = {
+            entry_points=[
+                CommandHandler('start', entry.options, pass_user_data=True),
+                MessageHandler(Filters.regex(lang['ENTRY_REGEX']), entry.options,
+                               pass_user_data=True)
+            ],
+            states={
                 'AWAIT_OPTIONS': [MessageHandler(Filters.regex(lang['STATE_AWAIT_OPTIONS_REGEX']), state.option, pass_user_data=True)],
-                # 'CLIENTE': [MessageHandler(Filters.text, state.client, pass_user_data=True)],
-                # 'VOZ': [MessageHandler(Filters.voice, state.save, pass_user_data=True)]
+                'CLIENT': [MessageHandler(Filters.text, state.client, pass_user_data=True)],
+                'INCIDENCE': [MessageHandler(Filters.voice, state.incidence, pass_user_data=True)],
+                'SUGGESTION': [MessageHandler(Filters.text, state.suggestion, pass_user_data=True)]
             },
-            fallbacks = [
-                MessageHandler(Filters.regex(lang['FALLBACK_KEYBOARD_REGEX']), fallback.keyboard, pass_user_data=True),
-                CommandHandler('end', command.end)
+            fallbacks=[
+                CommandHandler('end', command.end),
+                MessageHandler(Filters.regex(
+                    lang['FALLBACK_KEYBOARD_REGEX']), fallback.keyboard, pass_user_data=True)
             ]
         )
     )

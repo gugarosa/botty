@@ -1,10 +1,19 @@
 {
-    "HANDLER_ENTRY": "Cliente,Voz,Finalizar",
-    "HANDLER_ENTRY_OPTIONS_1": "Olá ",
-    "HANDLER_ENTRY_OPTIONS_2": "! Por favor, escolha alguma opção.",
+    "ENTRY_REGEX": "^(Oi|Olá|Ola|Ei|Bot)",
     "FALLBACK_KEYBOARD_END": "Espero ter te ajudado! Você terminou sua sessão.",
     "FALLBACK_KEYBOARD_REGEX": "^(Finalizar)",
     "HANDLER_COMMAND_END": "A sessão foi finalizada. Quando precisar, é só voltar a falar comigo.",
-    "STATE_AWAIT_OPTIONS_REGEX": "^(Cliente|Voz)$",
-    "VOICE_SAVE_RESPONSE": "Voz recebida. Enviando de volta ..."
+    "HANDLER_ENTRY": "Perfil do Cliente,Ocorrências,Sugestões,Finalizar",
+    "HANDLER_ENTRY_OPTIONS_1": "Olá ",
+    "HANDLER_ENTRY_OPTIONS_2": "! Por favor, escolha alguma opção.",
+    "OCORRÊNCIAS": "INCIDENCE",
+    "PERFIL DO CLIENTE": "CLIENT",
+    "STATE_AWAIT_OPTIONS_REGEX": "^(Perfil do Cliente|Ocorrências|Sugestões)$",
+    "STATE_CLIENT": "Por favor, digite o nome do cliente.",
+    "STATE_CLIENT_ERROR": "Não foi possível encontrar o cliente. Por favor, tente novamente.",
+    "STATE_INCIDENCE": "Por favor, envie uma mensagem de voz.",
+    "STATE_INCIDENCE_OK": "Voz recebida. Estou pensando ...",
+    "STATE_SUGGESTION": "Por favor, envie um nome de produto.",
+    "STATE_SUGGESTION_ERROR": "Não foi possível encontrar o produto. Por favor, tente novamente.",
+    "SUGESTÕES": "SUGGESTION"
 }
