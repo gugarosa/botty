@@ -2,10 +2,10 @@ import configparser
 import logging
 
 from telegram.ext import (CommandHandler, ConversationHandler, Filters,
-                          MessageHandler, RegexHandler, Updater)
+                          MessageHandler, Updater)
 
 from handlers import command, entry, error, fallback, state
-from utils import locale
+from utils import constants as c
 
 # Enables logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -14,16 +14,16 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 # Gets the logging object
 logger = logging.getLogger(__name__)
 
-# Gathering locale strings
-lang = locale.get()
 
-
-def start_bot(key):
+def init(key):
     """Main process to initiate a customized bot needs.
+
+    Args:
+        key (str): A string holding the Telegram's API bot key.
 
     """
 
-    logger.info(f'Starting the bot ...')
+    logger.info(f'Initializing the bot ...')
 
     # Initializing base class with Bot's token
     updater = Updater(key, use_context=True)
@@ -36,19 +36,18 @@ def start_bot(key):
         ConversationHandler(
             entry_points=[
                 CommandHandler('start', entry.options, pass_user_data=True),
-                MessageHandler(Filters.regex(lang['ENTRY_REGEX']), entry.options,
+                MessageHandler(Filters.regex(c.ENTRY_REGEX), entry.options,
                                pass_user_data=True)
             ],
             states={
-                'AWAIT_OPTIONS': [MessageHandler(Filters.regex(lang['STATE_AWAIT_OPTIONS_REGEX']), state.option, pass_user_data=True)],
+                'AWAIT_OPTIONS': [MessageHandler(Filters.regex(c.AWAIT_OPTIONS_REGEX), state.option, pass_user_data=True)],
                 'CLIENT': [MessageHandler(Filters.text, state.client, pass_user_data=True)],
                 'INCIDENCE': [MessageHandler(Filters.voice, state.incidence, pass_user_data=True)],
                 'SUGGESTION': [MessageHandler(Filters.text, state.suggestion, pass_user_data=True)]
             },
             fallbacks=[
-                CommandHandler('end', command.end),
-                MessageHandler(Filters.regex(
-                    lang['FALLBACK_KEYBOARD_REGEX']), fallback.keyboard, pass_user_data=True)
+                CommandHandler('end', fallback.end),
+                MessageHandler(Filters.regex(c.FALLBACK_REGEX), fallback.end, pass_user_data=True)
             ]
         )
     )
@@ -74,4 +73,4 @@ if __name__ == '__main__':
     key = config.get('BOT', 'TELEGRAM_KEY')
 
     # Initialize bot
-    start_bot(key)
+    init(key)

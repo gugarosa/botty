@@ -1,5 +1,0 @@
-{
-    "TEXT_FIRST_RESPONSE": "Hi! This is your first interaction with me. What do you want?",
-    "TEXT_INTENT_FALLBACK": "Sorry, I could not understand. Please, tell me again.",
-    "VOICE_SAVE_RESPONSE": "Voice received. Please await, I am thinking ..."
-}

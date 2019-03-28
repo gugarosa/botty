@@ -3,17 +3,14 @@ import logging
 from telegram import ReplyKeyboardRemove
 from telegram.ext import ConversationHandler
 
-from utils import locale
+from utils import constants as c
 
 # Gets the logging object
 logger = logging.getLogger(__name__)
 
-# Gathering locale strings
-lang = locale.get()
 
-
-def keyboard(update, context):
-    """Handles a 'fallback_regex' emitted by the user.
+def end(update, context):
+    """Handles the interaction ending.
 
     Args:
         update (Update): An update object, basically holding vital information from a new user interaction.
@@ -27,6 +24,6 @@ def keyboard(update, context):
     keyboard_removal = ReplyKeyboardRemove()
 
     # Replying a message to cancel the current interaction
-    update.message.reply_text(lang['FALLBACK_KEYBOARD_END'], reply_markup=keyboard_removal)
+    update.message.reply_text(c.FALLBACK_END_RESPONSE, reply_markup=keyboard_removal)
 
     return ConversationHandler.END
