@@ -32,19 +32,21 @@ Smart Bot is based on the following structure, and you should pay attention to i
         - utils
     - bot
         - handlers
-            - command
             - entry
             - error
             - fallback
-            - state
+            - states
+                - await_options
+                - client
+                - incidence
+                - suggestion
         - storage
             - voices
         - tasks
             - mock
             - spacy
         - utils
-            - lang
-            - locale
+            - constants
             - text
             - voice
 ```
@@ -65,15 +67,13 @@ Essentialy, you can define what you want in the bot module. Just follow the exam
 
 This is why we are called Smart Bot. This will deal with all the inputs your users can perform from the Telegram application. Again, you can define whatever your desire. Please note that we are using python-telegram-bot to handle the service, so follow along them as well.
 
-```command```: This will handle any command related issues.
-
 ```entry```: An handler for any entry point.
 
 ```error```: This will handle any possible errors that surfaces.
 
 ```fallback```: If any fallback happens, this should be the place for it.
 
-```state```: Handles any possible conversation states.
+```states```: Handles any possible conversation states.
 
 #### Storage
 
@@ -93,13 +93,11 @@ Tasks are your bot actions. If you need to implement your own or gather external
 
 This is an utilities package. Common things shared across the application should be implemented here. It is better to implement once and use as you wish than re-implementing the same thing over and over again.
 
-```lang```: A folder holding several language translation files encoded in json format.
+```constants```: Pre-defined constants used to help across the application.
 
-```locale```: Package to build your own localization system. You can define your own methods if additional procedures are required.
+```text```: Pre-defined text messages handling used to help across the application.
 
-```text```: Any incoming message text will be handled by this module.
-
-```voice```: Any incoming message voice will be handled by this module.
+```voice```: Pre-defined voice messages handling used to help across the application.
 
 ---
 

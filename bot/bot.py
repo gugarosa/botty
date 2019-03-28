@@ -4,7 +4,8 @@ import logging
 from telegram.ext import (CommandHandler, ConversationHandler, Filters,
                           MessageHandler, Updater)
 
-from handlers import command, entry, error, fallback, state
+from handlers import entry, error, fallback
+from handlers.states import await_options, client, incidence, suggestion
 from utils import constants as c
 
 # Enables logging
@@ -40,14 +41,14 @@ def init(key):
                                pass_user_data=True)
             ],
             states={
-                'AWAIT_OPTIONS': [MessageHandler(Filters.regex(c.AWAIT_OPTIONS_REGEX), state.option, pass_user_data=True)],
-                'CLIENT': [MessageHandler(Filters.text, state.client, pass_user_data=True)],
-                'INCIDENCE': [MessageHandler(Filters.voice, state.incidence, pass_user_data=True)],
-                'SUGGESTION': [MessageHandler(Filters.text, state.suggestion, pass_user_data=True)]
+                'AWAIT_OPTIONS': [MessageHandler(Filters.regex(c.AWAIT_OPTIONS_REGEX), await_options.state, pass_user_data=True)],
+                'CLIENT': [MessageHandler(Filters.text, client.state, pass_user_data=True)],
+                'INCIDENCE': [MessageHandler(Filters.voice, incidence.state, pass_user_data=True)],
+                'SUGGESTION': [MessageHandler(Filters.text, suggestion.state, pass_user_data=True)]
             },
             fallbacks=[
                 CommandHandler('end', fallback.end),
-                MessageHandler(Filters.regex(c.FALLBACK_REGEX), fallback.end, pass_user_data=True)
+                MessageHandler(Filters.regex(c.FALLBACK_REGEX), fallback.end)
             ]
         )
     )

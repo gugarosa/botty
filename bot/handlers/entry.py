@@ -9,7 +9,7 @@ from utils import constants as c
 logger = logging.getLogger(__name__)
 
 # Creating a markup to hold options
-markup = ReplyKeyboardMarkup(c.ENTRY_OPTIONS, one_time_keyboard=True)
+markup = ReplyKeyboardMarkup([c.ENTRY_OPTIONS], one_time_keyboard=True)
 
 
 def options(update, context):
@@ -34,4 +34,4 @@ def options(update, context):
 
     logger.info(f'Awaiting user option ...')
 
-    return c.ENTRY_OPTIONS_STATE
+    return 'AWAIT_OPTIONS'
