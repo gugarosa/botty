@@ -30,16 +30,23 @@ Smart Bot is based on the following structure, and you should pay attention to i
     - api
         - handlers
         - utils
-    - data
-    - handlers
-        - error
-        - text
-        - voice
-    - tasks
-        - spacy
-    - utils
-        - lang
-        - locale
+    - bot
+        - handlers
+            - command
+            - entry
+            - error
+            - fallback
+            - state
+        - storage
+            - voices
+        - tasks
+            - mock
+            - spacy
+        - utils
+            - lang
+            - locale
+            - text
+            - voice
 ```
 
 ### API
@@ -50,35 +57,49 @@ Essentialy, you can define what you want in the api module. Just follow the exam
 
 ```utils```: An utilities package, if needed, to load external features. One example we can think of would be your machine learning toolkit.
 
-### Data
+### Bot
 
-We will generate data. Any data, lots of data, it is up to you. Use this module to save your files.
+Essentialy, you can define what you want in the bot module. Just follow the examples and you will have your custom bot in no more than 5 minutes.
 
-```voice```: A voice folder to storage voice saved files.
-
-### Handlers
+#### Handlers
 
 This is why we are called Smart Bot. This will deal with all the inputs your users can perform from the Telegram application. Again, you can define whatever your desire. Please note that we are using python-telegram-bot to handle the service, so follow along them as well.
 
+```command```: This will handle any command related issues.
+
+```entry```: An handler for any entry point.
+
 ```error```: This will handle any possible errors that surfaces.
 
-```text```: Any incoming message text will be handled by this module.
+```fallback```: If any fallback happens, this should be the place for it.
 
-```voice```: Any incoming message voice will be handled by this module.
+```state```: Handles any possible conversation states.
 
-### Tasks
+#### Storage
+
+We will generate data. Any data, lots of data, it is up to you. Use this module to save your files.
+
+```voices```: A voices folder to storage voice saved files.
+
+#### Tasks
 
 Tasks are your bot actions. If you need to implement your own or gather external tools, here is the place to define them. You can define basically anything, just remember as we are dealing with external API calls, whatever comes in will be a JSON, whatever comes out will be a JSON.
 
+```mock```: A mock module to hold any fake API tasks.
+
 ```spacy```: A spacy module to hold any spacy-related tasks. This will be one of our external machine learning toolkits.
 
-### Utils
+#### Utils
 
 This is an utilities package. Common things shared across the application should be implemented here. It is better to implement once and use as you wish than re-implementing the same thing over and over again.
 
 ```lang```: A folder holding several language translation files encoded in json format.
 
 ```locale```: Package to build your own localization system. You can define your own methods if additional procedures are required.
+
+```text```: Any incoming message text will be handled by this module.
+
+```voice```: Any incoming message voice will be handled by this module.
 
 ---
 
