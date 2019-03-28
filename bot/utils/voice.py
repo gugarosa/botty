@@ -1,7 +1,5 @@
 import logging
 
-from telegram.ext import ConversationHandler
-
 # Path to downkoad saved voice files
 DOWNLOAD_PATH = 'storage/voices/'
 
@@ -13,7 +11,7 @@ def save(voice):
     """Saves a newly received voice update.
 
     Args:
-        voice (Voice): A telegram.Voice object for further handling.
+        voice (Voice): A telegram.Voice object for further saving.
 
     """
 
