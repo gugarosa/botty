@@ -3,7 +3,7 @@
 # Entry
 
 # Regex to initiate bot flow (entry.options)
-ENTRY_REGEX = '^(Oi|Olá|Ola|Ei|Bot)$'
+ENTRY_REGEX = '^(Oi|Olá|Ola|Ei|Bot)'
 
 # List of options provided by entry.options
 ENTRY_OPTIONS = ['Perfil do Cliente', 'Ocorrências', 'Sugestões', 'Finalizar']
