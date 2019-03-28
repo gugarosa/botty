@@ -9,7 +9,7 @@
 config.ini
 
 # Downloaded data
-storage/**/*
+bot/storage/**/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
