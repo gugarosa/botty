@@ -35,8 +35,14 @@ CLIENT_RESPONSE = '<b>Cliente:</b> {client}\n<b>E-mail:</b> {email}\n<b>Telefone
 
 ## INCIDENCE
 
-# Response when voice message is saved
-INCIDENCE_RESPONSE = 'Mensagem de voz recebida. Por favor, aguarde um momento.'
+# Response when speech-to-text was not found
+INCIDENCE_ERROR = 'Não foi possível realizar a transcrição do áudio. Por favor, tente novamente.'
+
+# Response when voice message is saved and waits for API call
+INCIDENCE_WAITING = 'Mensagem de voz recebida. Por favor, aguarde um momento.'
+
+# Response when transcript is found
+INCIDENCE_RESPONSE = '<b>Transcrição:</b> {transcript}'
 
 ## SUGGESTION
 

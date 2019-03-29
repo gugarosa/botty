@@ -13,6 +13,8 @@ def save(voice):
     Args:
         voice (Voice): A telegram.Voice object for further saving.
 
+    Returns:
+
     """
 
     logger.info(f'Handling voice saving ...')
@@ -24,3 +26,5 @@ def save(voice):
     voice.get_file().download(voice_file)
 
     logger.info(f'Voice saved to {voice_file}')
+
+    return voice_file

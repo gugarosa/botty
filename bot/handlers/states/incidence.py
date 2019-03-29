@@ -1,6 +1,7 @@
 import logging
 
 from handlers import fallback
+from tasks import google
 from utils import constants as c
 from utils import voice
 
@@ -21,13 +22,27 @@ def state(update, context):
     voice_message = update.message.voice
 
     # Handling voice saving
-    voice.save(voice_message)
+    voice_path = voice.save(voice_message)
 
     # Replying back to user to hold for response
-    update.message.reply_text(c.INCIDENCE_RESPONSE)
+    update.message.reply_text(c.INCIDENCE_WAITING)
+
+    # Making API call
+    result = google.speech_text('bot/' + voice_path)
+
+    # Checks if API call was possible
+    if result == None:
+        logger.warning(f'Transcription not found for voice: {voice_path}')
+
+        # Replies text saying client was not found
+        update.message.reply_text(c.INCIDENCE_ERROR)
+
+        return 'INCIDENCE'
+
+    logger.info(f'Transcript found. Replying its information ...')
 
     # Replying voice back
-    update.message.reply_voice(voice_message)
+    update.message.reply_html(c.INCIDENCE_RESPONSE.format(transcript=result))
 
     # Ending conversation
     return fallback.retry(update, context)

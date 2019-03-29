@@ -2,6 +2,9 @@
 **/*.DS_Store
 .vscode/
 
+# Google API JSON
+api/google_api.json
+
 # Ubuntu's editor temp files
 **/*.*~
 
