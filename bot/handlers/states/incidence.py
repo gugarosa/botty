@@ -30,4 +30,4 @@ def state(update, context):
     update.message.reply_voice(voice_message)
 
     # Ending conversation
-    return fallback.end(update, context)
+    return fallback.retry(update, context)

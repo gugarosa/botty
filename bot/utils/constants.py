@@ -3,7 +3,7 @@
 # Entry
 
 # Regex to initiate bot flow (entry.options)
-ENTRY_REGEX = '^(Oi|Olá|Ola|Ei|Bot)'
+ENTRY_REGEX = '^(?i)(Oi|Olá|Ola|Ei|Bot)'
 
 # List of options provided by entry.options
 ENTRY_OPTIONS = ['Perfil do Cliente', 'Ocorrências', 'Sugestões', 'Finalizar']
@@ -53,3 +53,6 @@ FALLBACK_REGEX = '^(Finalizar)$'
 
 # Response when fallback.end is called
 FALLBACK_END_RESPONSE = 'A sessão foi finalizada. Quando precisar, é só voltar a falar comigo.'
+
+# Response when fallback.retry is called
+FALLBACK_RETRY_RESPONSE = 'Você deseja mais alguma coisa?'

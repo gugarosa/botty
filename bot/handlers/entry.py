@@ -8,9 +8,6 @@ from utils import constants as c
 # Gets the logging object
 logger = logging.getLogger(__name__)
 
-# Creating a markup to hold options
-markup = ReplyKeyboardMarkup([c.ENTRY_OPTIONS], one_time_keyboard=True)
-
 
 def options(update, context):
     """Handles the initial options from first interaction.
@@ -28,6 +25,9 @@ def options(update, context):
 
     # Composing a text reply to user
     reply = c.ENTRY_OPTIONS_RESPONSE.format(name=first_name)
+
+    # Creating a markup to hold options
+    markup = ReplyKeyboardMarkup([c.ENTRY_OPTIONS[:2], c.ENTRY_OPTIONS[2:]], one_time_keyboard=True)
 
     # Replying text and a keyboard with options
     update.message.reply_text(reply, reply_markup=markup)

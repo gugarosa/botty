@@ -41,4 +41,4 @@ def state(update, context):
         product=product, company=result['company'], price=result['price']))
 
     # Ending conversation
-    return fallback.end(update, context)
+    return fallback.retry(update, context)

@@ -46,4 +46,4 @@ def state(update, context):
     update.message.reply_photo(result['avatar'])
 
     # Ending conversation
-    return fallback.end(update, context)
+    return fallback.retry(update, context)
