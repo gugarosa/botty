@@ -57,10 +57,21 @@ class GoogleHandler(RequestHandler):
                 language_code='pt-BR')
 
             # Detects speech in the audio file
-            res = self.client.recognize(config, audio)
+            #res = self.client.recognize(config, audio)
 
+            # Creates an operation to detects speech in a long audio file
+            operation = self.client.long_running_recognize(config, audio)
+
+            # Gathers the result of the operation
+            res = operation.result(timeout=90)
+
+            # Creates an empty variable to hold the result
+            result = ''
+
+            # Iterate through every result
             for r in res.results:
-                result = r.alternatives[0].transcript
+                # Gathers the best transcription for each chunk
+                result += r.alternatives[0].transcript
             
             # Writes the final result back
             self.write(dict(result=result))

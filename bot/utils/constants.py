@@ -6,7 +6,7 @@
 ENTRY_REGEX = '^(?i)(Oi|Olá|Ola|Ei|Bot)'
 
 # List of options provided by entry.options
-ENTRY_OPTIONS = ['Perfil do Cliente', 'Ocorrências', 'Sugestões', 'Finalizar']
+ENTRY_OPTIONS = ['Perfil do Cliente', 'Ocorrências - Longo', 'Sugestões', 'Finalizar']
 
 # Response provided by entry.options
 ENTRY_OPTIONS_RESPONSE = 'Olá {name}! Por favor, escolha alguma opção.'
@@ -16,7 +16,7 @@ ENTRY_OPTIONS_RESPONSE = 'Olá {name}! Por favor, escolha alguma opção.'
 ## AWAIT_OPTIONS
 
 # Regex to capture user's chosen option (order must match ENTRY_OPTIONS)
-AWAIT_OPTIONS_REGEX = '^(Perfil do Cliente|Ocorrências|Sugestões)$'
+AWAIT_OPTIONS_REGEX = '^(Perfil do Cliente|Ocorrências - Longo|Sugestões)$'
 
 # Responses according to possible options (order must match ENTRY_OPTIONS)
 AWAIT_OPTIONS_RESPONSES = ['Por favor, digite o nome do cliente.',
