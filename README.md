@@ -1,4 +1,4 @@
-# Smart Bot: A Telegram Python-Inspired Bot
+# Smart Bot: A Python-Inspired Telegram Bot
 
 ## Welcome to Smart Bot.
 
