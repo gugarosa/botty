@@ -18,7 +18,7 @@ def state(update, context):
     """
 
     # Gathering user's choice
-    option = update.message.text
+    option = context.match[0]
 
     logger.info(f'User option: {option}')
 
