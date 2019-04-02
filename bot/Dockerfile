@@ -7,6 +7,9 @@ WORKDIR /smart/
 # Copy desired files into desired container's directory
 COPY . /smart/bot
 
+# Creating a directory to hold saved voice files
+RUN mkdir storage && mkdir storage/voices
+
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r bot/requirements.txt
 
