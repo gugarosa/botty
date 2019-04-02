@@ -28,7 +28,7 @@ def state(update, context):
     update.message.reply_text(c.INCIDENCE_WAITING)
 
     # Making API call
-    result = google.speech_text('bot/' + voice_path)
+    result = google.speech_text(voice_path)
 
     # Checks if API call was possible
     if result == None:

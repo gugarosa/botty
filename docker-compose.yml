@@ -1,0 +1,18 @@
+version: '3.5'
+services:
+    api:
+        build: './api'
+        ports:
+            - 8080:8080
+        volumes:
+            - storage:/smart/storage
+    bot:
+        build: './bot'
+        links:
+            - 'api'
+        depends_on:
+            - api
+        volumes:
+            - storage:/smart/storage
+volumes:
+    storage:

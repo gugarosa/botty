@@ -105,8 +105,12 @@ This is an utilities package. Common things shared across the application should
 
 We belive that everything have to be easy. Not difficult or daunting, Smart Bot will be the one-to-go package that you will need, from the very first instalattion to the daily-tasks implementing needs. If you may, just run the following under your most preferende Python environment (raw, conda, virtualenv, whatever)!:
 
-```Python
-pip install -r requirements.txt
+```
+docker-compose build
+```
+
+```
+docker-compose up
 ```
 
 ---

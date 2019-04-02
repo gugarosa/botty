@@ -3,7 +3,7 @@ import json
 import requests
 
 # URL to call Google's API
-GOOGLE_API = 'http://localhost:8080/api/google/'
+GOOGLE_API = 'http://api:8080/google/'
 
 
 def speech_text(audio_path):

@@ -68,7 +68,7 @@ if __name__ == '__main__':
     config = configparser.ConfigParser()
 
     # Parsing a new config
-    config.read('config.ini')
+    config.read('bot/config.ini')
 
     # Gathers the key
     key = config.get('BOT', 'TELEGRAM_KEY')
