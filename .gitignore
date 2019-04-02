@@ -2,17 +2,17 @@
 **/*.DS_Store
 .vscode/
 
-# Google API JSON
-api/google_api.json
-
 # Ubuntu's editor temp files
 **/*.*~
 
 # Configuration file
 config.ini
 
+# External API's keys
+api/keys/*.json
+
 # Downloaded data
-storage/voices/*
+storage/voices/*.ogg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
