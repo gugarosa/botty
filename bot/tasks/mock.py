@@ -1,9 +1,16 @@
+import configparser
 import json
 
 import requests
 
-# URL to call mocked API
-MOCK_API = 'https://app.fakejson.com/q'
+# Initializing configuration object
+config = configparser.ConfigParser()
+
+# Parsing a new config
+config.read('bot/config.ini')
+
+# Gathers the mock's task endpoint
+MOCK_API = config.get('TASKS', 'MOCK')
 
 
 def check_client(message):
@@ -45,6 +52,7 @@ def check_client(message):
     except:
         # Raises a ConnectionError (this should be enough)
         raise ConnectionError
+
 
 def check_product(message):
     """Performs a call to a mock API and verify if message exists.

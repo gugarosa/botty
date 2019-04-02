@@ -1,9 +1,16 @@
+import configparser
 import json
 
 import requests
 
-# URL to call Google's API
-GOOGLE_API = 'http://api:8080/google/'
+# Initializing configuration object
+config = configparser.ConfigParser()
+
+# Parsing a new config
+config.read('bot/config.ini')
+
+# Gathers the google's task endpoint
+GOOGLE_API = config.get('TASKS', 'GOOGLE')
 
 
 def speech_text(audio_path):

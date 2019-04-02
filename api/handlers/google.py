@@ -44,7 +44,7 @@ class GoogleHandler(RequestHandler):
         if not isinstance(audio_path, str):
             # Raises error if not
             raise RuntimeError('audio_path should be a string')
-        
+
         # Tries to actually call the google's speech-to-text service
         try:
             with io.open(audio_path, 'rb') as audio_file:
@@ -72,7 +72,7 @@ class GoogleHandler(RequestHandler):
             for r in res.results:
                 # Gathers the best transcription for each chunk
                 result += r.alternatives[0].transcript
-            
+
             # Writes the final result back
             self.write(dict(result=result))
 

@@ -1,2 +1,6 @@
 [BOT]
 TELEGRAM_KEY =
+
+[TASKS]
+GOOGLE =
+MOCK =

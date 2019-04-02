@@ -12,7 +12,7 @@ api/google_api.json
 config.ini
 
 # Downloaded data
-bot/storage/**/*
+storage/voices/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
