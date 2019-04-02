@@ -2,7 +2,7 @@
 FROM python:3.6-slim
 
 # Defining environment variables
-ENV GOOGLE_APPLICATION_CREDENTIALS=/smart/api/google_api.json
+ENV GOOGLE_APPLICATION_CREDENTIALS=/smart/api/keys/google.json
 
 # Sets the work directory to desired
 WORKDIR /smart/
