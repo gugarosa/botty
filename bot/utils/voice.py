@@ -14,6 +14,7 @@ def save(voice):
         voice (Voice): A telegram.Voice object for further saving.
 
     Returns:
+        The identifier and the download path to the voice file.
 
     """
 
@@ -27,4 +28,4 @@ def save(voice):
 
     logger.info(f'Voice saved to {voice_file}')
 
-    return voice_file
+    return voice.file_id, voice_file

@@ -13,6 +13,7 @@ api/keys/*.json
 
 # Downloaded data
 storage/voices/*.ogg
+storage/transcripts/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -3,7 +3,7 @@ import logging
 from handlers import fallback
 from tasks import google
 from utils import constants as c
-from utils import voice
+from utils import transcript, voice
 
 # Gets the logging object
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ def state(update, context):
     voice_message = update.message.voice
 
     # Handling voice saving
-    voice_path = voice.save(voice_message)
+    voice_id, voice_path = voice.save(voice_message)
 
     # Replying back to user to hold for response
     update.message.reply_text(c.INCIDENCE_WAITING)
@@ -40,6 +40,9 @@ def state(update, context):
         return 'INCIDENCE'
 
     logger.info(f'Transcript found. Replying its information ...')
+
+    # Saving transcript
+    transcript.save(voice_id, result)
 
     # Replying voice back
     update.message.reply_html(c.INCIDENCE_RESPONSE.format(transcript=result))
