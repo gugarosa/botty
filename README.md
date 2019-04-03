@@ -47,8 +47,10 @@ Smart Bot is based on the following structure, and you should pay attention to i
             - mock
         - utils
             - constants
+            - transcript
             - voice
     - storage
+        - transcripts
         - voices
 ```
 
@@ -92,13 +94,17 @@ This is an utilities package. Common things shared across the application should
 
 ```constants```: Pre-defined constants used to help across the application.
 
+```transcript```: Pre-defined voice transcription handling used to help across the application.
+
 ```voice```: Pre-defined voice messages handling used to help across the application.
 
 ### Storage
 
 We will generate data. Any data, lots of data, it is up to you. Use this module to save your files.
 
-```voices```: A voices folder to storage voice saved files.
+```transcripts```: A transcripts folder to store voices' transcriptions.
+
+```voices```: A voices folder to store voice saved files.
 
 ---
 
