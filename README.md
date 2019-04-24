@@ -43,6 +43,7 @@ Smart Bot is based on the following structure, and you should pay attention to i
                 - incidence
                 - suggestion
         - tasks
+            - aws
             - google
             - mock
         - utils
@@ -83,6 +84,8 @@ This is why we are called Smart Bot. This will deal with all the inputs your use
 #### Tasks
 
 Tasks are your bot actions. If you need to implement your own or gather external tools, here is the place to define them. You can define basically anything, just remember as we are dealing with external API calls, whatever comes in will be a JSON, whatever comes out will be a JSON.
+
+```aws```: An amazon web services module to hold any aws-related tasks. As for now, we are only using AWS' S3 storage.
 
 ```google```: A google module to hold any google-related tasks. As for now, we are only using Google's speech-to-text API.
 
@@ -133,6 +136,11 @@ Before running any application, you need to enter in ```bot/``` folder and creat
 [BOT]
 TELEGRAM_KEY = <telegram's bot key>
 
+[AWS]
+ACCESS_KEY = <s3 bucket access key>
+SECRET_KEY = <s3 bucket secret key>
+BUCKET_URL = <s3 bucket url>
+
 [TASKS]
 GOOGLE = http://localhost:8080/google/
 MOCK = https://app.fakejson.com/q
@@ -160,6 +168,11 @@ Before running any application, you need to enter in ```bot/``` folder and creat
 ```
 [BOT]
 TELEGRAM_KEY = <telegram's bot key>
+
+[AWS]
+ACCESS_KEY = <s3 bucket access key>
+SECRET_KEY = <s3 bucket secret key>
+BUCKET_URL = <s3 bucket url>
 
 [TASKS]
 GOOGLE = http://api:8080/google/

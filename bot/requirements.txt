@@ -1,3 +1,4 @@
 pylint>=1.7.4
 python-telegram-bot>=12.0.0b1
 requests>=2.21.0
+requests-aws>=0.1.8
