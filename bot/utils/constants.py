@@ -11,6 +11,9 @@ ENTRY_OPTIONS = ['Perfil do Cliente', 'Ocorrências - Longo', 'Sugestões', 'Fin
 # Response provided by entry.options
 ENTRY_OPTIONS_RESPONSE = 'Olá {name}! Por favor, escolha alguma opção.'
 
+# Reminder when user has not chosen an option
+ENTRY_REMINDER = 'Ainda estou agurdando a sua opção.'
+
 # States
 
 ## AWAIT_OPTIONS
