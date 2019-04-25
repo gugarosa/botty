@@ -34,6 +34,7 @@ Smart Bot is based on the following structure, and you should pay attention to i
         - utils
     - bot
         - handlers
+            - common
             - entry
             - error
             - fallback
@@ -73,7 +74,9 @@ Essentialy, you can define what you want in the bot module. Just follow the exam
 
 This is why we are called Smart Bot. This will deal with all the inputs your users can perform from the Telegram application. Again, you can define whatever your desire. Please note that we are using python-telegram-bot to handle the service, so follow along them as well.
 
-```entry```: An handler for any entry point.
+```common```: A handler for common uses.
+
+```entry```: A handler for any entry point.
 
 ```error```: This will handle any possible errors that surfaces.
 
