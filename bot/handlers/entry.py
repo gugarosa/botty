@@ -4,6 +4,7 @@ from telegram import ReplyKeyboardMarkup
 from telegram.ext import ConversationHandler
 
 from handlers import common
+from tasks import weather
 from utils import constants as c
 
 # Gets the logging object
@@ -28,9 +29,20 @@ def options(update, context):
     markup = ReplyKeyboardMarkup(
         [c.ENTRY_OPTIONS[:2], c.ENTRY_OPTIONS[2:]], one_time_keyboard=True)
 
-    # Replying text and a keyboard with options
-    update.message.reply_text(c.ENTRY_OPTIONS_RESPONSE.format(
-        name=first_name), reply_markup=markup)
+    # Checks if there is any location data
+    if context.user_data:
+        # If yes, gathers the current temperature from that location
+        temp = weather.get_temperature(context.user_data)
+
+        # Replies according to flow
+        update.message.reply_text(c.ENTRY_OPTIONS_RESPONSE.format(
+            name=first_name, temperature=temp), reply_markup=markup)
+
+    # If not
+    else:
+        # Replies as if user has not shared its location
+        update.message.reply_text(c.ENTRY_OPTIONS_RESPONSE_NO_LOCATION.format(
+            name=first_name), reply_markup=markup)
 
     # Starts the job queue and dispatches a job after 10 minutes
     context.job_queue.run_once(
