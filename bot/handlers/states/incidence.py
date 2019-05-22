@@ -1,7 +1,7 @@
 import logging
 
 from handlers import fallback
-from tasks import google
+from tasks import google, spacy
 from utils import constants as c
 from utils import transcript, voice
 
@@ -28,10 +28,10 @@ def state(update, context):
     update.message.reply_text(c.INCIDENCE_WAITING)
 
     # Making API call
-    result = google.speech_text(voice_path)
+    text = google.speech_text(voice_path)
 
     # Checks if API call was possible
-    if result == None:
+    if text == None:
         logger.warning(f'Transcription not found for voice: {voice_path}')
 
         # Replies text saying client was not found
@@ -42,10 +42,20 @@ def state(update, context):
     logger.info(f'Transcript found. Replying its information ...')
 
     # Saving transcript
-    transcript.save(voice_id, result)
+    transcript.save(voice_id, text)
 
-    # Replying voice back
-    update.message.reply_html(c.INCIDENCE_RESPONSE.format(transcript=result))
+    # Replying transcript back
+    update.message.reply_html(c.INCIDENCE_RESPONSE.format(transcript=text))
+
+    logger.info(f'Applying NER to transcript ...')
+
+    # Making another API call
+    ner = spacy.ner(text)
+
+    logger.info(f'NER found. Replying its information ...')
+
+    # Replying NER back
+    update.message.reply_html(c.INCIDENCE_RESPONSE_NER.format(ner=ner))
 
     # Ending conversation
     return fallback.retry(update, context)

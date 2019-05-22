@@ -1,6 +1,7 @@
 import logging
 
 from google.cloud import speech
+from spacy import load
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado.web import Application
@@ -18,6 +19,7 @@ logger = logging.getLogger(__name__)
 # Port constant
 PORT = 8080
 
+
 class Server(Application):
     """A class to hold the actual server class.
 
@@ -34,8 +36,8 @@ class Server(Application):
 
         # Default API handlers
         handlers = [
-            (r'/google/', GoogleHandler, dict(client=speech_client)),
-            (r'/api/spacy/', SpacyHandler, dict(model=spacy_model))
+            (r'/google', GoogleHandler, dict(client=speech_client)),
+            (r'/spacy', SpacyHandler, dict(model=spacy_model))
         ]
 
         # Bootstrap the Application class
@@ -43,14 +45,17 @@ class Server(Application):
 
 
 if __name__ == '__main__':
-    # Loading model
-    logging.debug('Loading model ...')
+    # Loading Google's speech client
+    logging.debug('Loading speech client ...')
 
     # Instantiates a Google's speech-to-text client
     speech_client = speech.SpeechClient()
 
-    # Actually calling spacing and loading the model
-    spacy_model = spacy.load('models/kibon.md')
+    # Loading model
+    logging.debug('Loading spacy model ...')
+
+    # Actually calling Spacy and loading the model
+    spacy_model = load('./api/models/kibon')
 
     # Logging important information
     logging.debug('Starting server ...')

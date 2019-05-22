@@ -12,17 +12,10 @@ class GoogleHandler(RequestHandler):
     Properties:
         client (SpeechClient): A speech client from google.cloud.speech.
 
-    Methods:
-        initialize(**kwagrs): Initializes the handler.
-        post(): Performs POST request.
-
     """
 
     def initialize(self, **kwargs):
         """Initializes the handler for Google's.
-
-        Args:
-            kwargs (**): Additional keyword arguments
 
         """
 

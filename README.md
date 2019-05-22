@@ -30,6 +30,7 @@ Smart Bot is based on the following structure, and you should pay attention to i
     - api
         - handlers
             - google
+            - spacy
         - keys
         - utils
     - bot
@@ -47,6 +48,8 @@ Smart Bot is based on the following structure, and you should pay attention to i
             - aws
             - google
             - mock
+            - spacy
+            - weather
         - utils
             - constants
             - transcript
@@ -93,6 +96,10 @@ Tasks are your bot actions. If you need to implement your own or gather external
 ```google```: A google module to hold any google-related tasks. As for now, we are only using Google's speech-to-text API.
 
 ```mock```: A mock module to hold any fake API tasks.
+
+```spacy```: A Spacy module to hold any spacy-related tasks. As for now, we are only using Spacy's named entity recognition.
+
+```weather```: A weather module to hold any Weather API tasks.
 
 #### Utils
 
@@ -145,8 +152,10 @@ SECRET_KEY = <s3 bucket secret key>
 BUCKET_URL = <s3 bucket url>
 
 [TASKS]
-GOOGLE = http://localhost:8080/google/
+GOOGLE = http://localhost:8080/google
 MOCK = https://app.fakejson.com/q
+SPACY = http://localhost:8080/spacy
+WEATHER = https://api.worldweatheronline.com/premium/v1/weather.ashx?
 ```
 
 As we are using Google Cloud Platform, we need to define an environment variable that points to its key:
@@ -180,6 +189,8 @@ BUCKET_URL = <s3 bucket url>
 [TASKS]
 GOOGLE = http://api:8080/google/
 MOCK = https://app.fakejson.com/q
+SPACY = http://localhost:8080/spacy
+WEATHER = https://api.worldweatheronline.com/premium/v1/weather.ashx?
 ```
 
 Remember that, as we are using Google Cloud Platform, you need to get your own Google's key file and add to ```api/key/google.json```.

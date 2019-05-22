@@ -6,7 +6,7 @@
 ENTRY_REGEX = '^(?i)(Oi|Olá|Ola|Ei|Bot)'
 
 # List of options provided by entry.options
-ENTRY_OPTIONS = ['Perfil do Cliente', 'Ocorrências - Longo', 'Sugestões', 'Finalizar']
+ENTRY_OPTIONS = ['Perfil do Cliente', 'Pedido por Voz', 'Sugestões', 'Finalizar']
 
 # Response provided by entry.options
 ENTRY_OPTIONS_RESPONSE = 'Olá {name}! Acredita que hoje está {temperature} graus? Por favor, escolha alguma opção.'
@@ -22,7 +22,7 @@ ENTRY_REMINDER = 'Ainda estou agurdando a sua opção.'
 ## AWAIT_OPTIONS
 
 # Regex to capture user's chosen option (order must match ENTRY_OPTIONS)
-AWAIT_OPTIONS_REGEX = '^(Perfil do Cliente|Ocorrências - Longo|Sugestões)$'
+AWAIT_OPTIONS_REGEX = '^(Perfil do Cliente|Pedido por Voz|Sugestões)$'
 
 # Responses according to possible options (order must match ENTRY_OPTIONS)
 AWAIT_OPTIONS_RESPONSES = ['Por favor, digite o nome do cliente.',
@@ -49,6 +49,9 @@ INCIDENCE_WAITING = 'Mensagem de voz recebida. Por favor, aguarde um momento.'
 
 # Response when transcript is found
 INCIDENCE_RESPONSE = '<b>Transcrição:</b> {transcript}'
+
+# Response when NER is found
+INCIDENCE_RESPONSE_NER = '<b>Dados:</b> {ner}'
 
 ## SUGGESTION
 
