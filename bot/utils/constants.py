@@ -9,7 +9,13 @@ ENTRY_REGEX = '^(?i)(Oi|Olá|Ola|Ei|Bot)'
 ENTRY_OPTIONS = ['Perfil do Cliente', 'Ocorrências - Longo', 'Sugestões', 'Finalizar']
 
 # Response provided by entry.options
-ENTRY_OPTIONS_RESPONSE = 'Olá {name}! Por favor, escolha alguma opção.'
+ENTRY_OPTIONS_RESPONSE = 'Olá {name}! Acredita que hoje está {temperature} graus? Por favor, escolha alguma opção.'
+
+# Response provided by entry.options with no location position
+ENTRY_OPTIONS_RESPONSE_NO_LOCATION = 'Olá {name}! Notei que você ainda não me mandou sua localização. Por favor, escolha alguma opção ou me mande sua localização.'
+
+# Reminder when user has not chosen an option
+ENTRY_REMINDER = 'Ainda estou agurdando a sua opção.'
 
 # States
 

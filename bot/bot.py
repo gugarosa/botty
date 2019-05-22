@@ -4,7 +4,7 @@ import logging
 from telegram.ext import (CommandHandler, ConversationHandler, Filters,
                           MessageHandler, Updater)
 
-from handlers import entry, error, fallback
+from handlers import common, entry, error, fallback
 from handlers.states import await_options, client, incidence, suggestion
 from utils import constants as c
 
@@ -52,6 +52,10 @@ def init(key):
             ]
         )
     )
+
+    # Adds a handler to save user location
+    dp.add_handler(MessageHandler(Filters.location,
+                                  common.location, pass_user_data=True))
 
     # Creates an error logging
     dp.add_error_handler(error.log)

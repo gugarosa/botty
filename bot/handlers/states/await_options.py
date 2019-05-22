@@ -17,6 +17,11 @@ def state(update, context):
 
     """
 
+    # Removes the reminder job if it exists
+    if context.job_queue.jobs():
+        for job in context.job_queue.jobs():
+            job.schedule_removal()
+
     # Gathering user's choice
     option = context.match[0]
 
