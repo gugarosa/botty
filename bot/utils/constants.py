@@ -53,6 +53,9 @@ INCIDENCE_RESPONSE = '<b>Transcrição:</b> {transcript}'
 # Response when NER is found
 INCIDENCE_RESPONSE_NER = '<b>Dados:</b> {ner}'
 
+# Response when PORTAL is found
+INCIDENCE_RESPONSE_PORTAL = '<b>Portal:</b> {portal}'
+
 ## SUGGESTION
 
 # Error when product is not found
