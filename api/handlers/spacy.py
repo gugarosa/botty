@@ -1,5 +1,6 @@
 from tornado import escape
 from tornado.web import RequestHandler
+import json
 
 
 class SpacyHandler(RequestHandler):
@@ -40,10 +41,33 @@ class SpacyHandler(RequestHandler):
             predict = self.model(message)
 
             # Creates a list holding the results
-            result = [f'{entity} - {entity.label_}' for entity in predict.ents]
+            #result = [f'{entity} - {entity.label_}' for entity in predict.ents]
+
+            prod, qty, und = [], [], []
+            for entity in predict.ents:
+                if entity.label_ == 'PROD':
+                    prod.append(str(entity))
+                if entity.label_ == 'QTD':
+                    qty.append(str(entity))
+                if entity.label_ == 'UND':
+                    und.append(str(entity))
+
+            temp = []
+
+            for i, (p, q, u) in enumerate(zip(prod, qty, und)):
+                temp.append({
+                    'cnpj': '1',
+                    'id': f'item{i+1}',
+                    'nome_cliente': 'Kibon',
+                    'ds_sku_input': p
+                })
+
+            final = {
+                'data': temp
+            }
 
             # Writes the final result back
-            self.write(dict(result=result))
+            self.write(dict(final))
 
         except:
             # If not possible, raises an error
