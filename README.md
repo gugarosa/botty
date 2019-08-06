@@ -187,9 +187,9 @@ SECRET_KEY = <s3 bucket secret key>
 BUCKET_URL = <s3 bucket url>
 
 [TASKS]
-GOOGLE = http://api:8080/google/
+GOOGLE = http://api:8080/google
 MOCK = https://app.fakejson.com/q
-SPACY = http://localhost:8080/spacy
+SPACY = http://api:8080/spacy
 WEATHER = https://api.worldweatheronline.com/premium/v1/weather.ashx?
 ```
 
