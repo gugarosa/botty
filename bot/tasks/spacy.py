@@ -40,7 +40,8 @@ def ner(message):
         response = json.loads(r.text)
 
         # Accessing JSON object and gathering request's response
-        result = response['result']
+        #result = response['result']
+        result = response
 
         return result
 

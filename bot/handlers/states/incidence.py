@@ -1,7 +1,7 @@
 import logging
 
 from handlers import fallback
-from tasks import google, spacy
+from tasks import google, spacy, portal
 from utils import constants as c
 from utils import transcript, voice
 
@@ -56,6 +56,16 @@ def state(update, context):
 
     # Replying NER back
     update.message.reply_html(c.INCIDENCE_RESPONSE_NER.format(ner=ner))
+
+    logger.info(f'Sending NER to portal ...')
+
+    # Making another API call
+    p = portal.call_portal(ner, update.message.chat.id)
+
+    logger.info(f'Replying portal information ...')
+
+    # Replying PORTAL back
+    update.message.reply_html(c.INCIDENCE_RESPONSE_PORTAL.format(portal=p))
 
     # Ending conversation
     return fallback.retry(update, context)
