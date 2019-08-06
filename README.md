@@ -156,6 +156,10 @@ GOOGLE = http://localhost:8080/google
 MOCK = https://app.fakejson.com/q
 SPACY = http://localhost:8080/spacy
 WEATHER = https://api.worldweatheronline.com/premium/v1/weather.ashx?
+
+[PORTAL]
+LOGIN = https://smart-portal-dev.netpartners.com.br/auth/login
+API = https://smart-portal-dev.netpartners.com.br/api
 ```
 
 As we are using the Google Cloud Platform, we need to define an environment variable that points to its key:
@@ -191,6 +195,10 @@ GOOGLE = http://api:8080/google
 MOCK = https://app.fakejson.com/q
 SPACY = http://api:8080/spacy
 WEATHER = https://api.worldweatheronline.com/premium/v1/weather.ashx?
+
+[PORTAL]
+LOGIN = https://smart-portal-dev.netpartners.com.br/auth/login
+API = https://smart-portal-dev.netpartners.com.br/api
 ```
 
 Remember that, as we are using Google Cloud Platform, you need to get your own Google's key file and add to ```api/key/google.json```.
