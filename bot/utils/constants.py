@@ -54,7 +54,7 @@ INCIDENCE_RESPONSE = '<b>Transcrição:</b> {transcript}'
 INCIDENCE_RESPONSE_NER = '<b>Dados:</b> {ner}'
 
 # Response when PORTAL is found
-INCIDENCE_RESPONSE_PORTAL = '<b>Portal:</b> {portal}'
+INCIDENCE_WAITING_PORTAL = 'Por favor, aguarde enquanto processamos seu pedido.'
 
 ## SUGGESTION
 

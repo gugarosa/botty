@@ -55,7 +55,7 @@ def state(update, context):
     logger.info(f'NER found. Replying its information ...')
 
     # Replying NER back
-    update.message.reply_html(c.INCIDENCE_RESPONSE_NER.format(ner=ner))
+    #update.message.reply_html(c.INCIDENCE_RESPONSE_NER.format(ner=ner))
 
     logger.info(f'Sending NER to portal ...')
 
@@ -65,7 +65,7 @@ def state(update, context):
     logger.info(f'Replying portal information ...')
 
     # Replying PORTAL back
-    update.message.reply_html(c.INCIDENCE_RESPONSE_PORTAL.format(portal=p))
+    update.message.reply_text(c.INCIDENCE_WAITING_PORTAL)
 
     # Ending conversation
     return fallback.retry(update, context)
