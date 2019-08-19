@@ -47,7 +47,13 @@ class GoogleHandler(RequestHandler):
             config = types.RecognitionConfig(
                 encoding=enums.RecognitionConfig.AudioEncoding.OGG_OPUS,
                 sample_rate_hertz=16000,
-                language_code='pt-BR')
+                language_code='pt-BR',
+                speech_contexts=[types.SpeechContext(
+                      phrases=["$OPERAND caixas de fruttare limão",
+                        "$OPERAND caixas fruttare limão",
+                        "$OPERAND caixa de fruttare uva",
+                        "fruttare maracujá $OPERAND caixa"])]
+                )
 
             # Detects speech in the audio file
             #res = self.client.recognize(config, audio)

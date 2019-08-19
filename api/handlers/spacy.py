@@ -54,13 +54,22 @@ class SpacyHandler(RequestHandler):
 
             temp = []
 
-            for i, (p, q, u) in enumerate(zip(prod, qty, und)):
-                temp.append({
-                    'cnpj': '1',
-                    'id': f'item{i+1}',
-                    'nome_cliente': 'Kibon',
-                    'ds_sku_input': p
-                })
+            # for i, (p, q, u) in enumerate(zip(prod, qty, und)):
+            #     temp.append({
+            #         'cnpj': '1',
+            #         'id': f'item{i+1}',
+            #         'nome_cliente': 'Kibon',
+            #         'ds_sku_input': p,
+            #         'qty': q
+            #     })
+
+            temp.append({
+                'cnpj': '1',
+                'id': '',
+                'nome_cliente': 'Kibon',
+                'ds_sku_input': prod,
+                'qty': qty
+            })
 
             final = {
                 'data': temp
