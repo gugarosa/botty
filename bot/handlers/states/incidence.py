@@ -64,6 +64,7 @@ def state(update, context):
 
     logger.info(f'Applying NER to transcript ...')
 
+    #
     text = replace_number(text).strip()
 
     # Making another API call
@@ -77,12 +78,12 @@ def state(update, context):
     # logger.info(f'Sending NER to portal ...')
 
     # Making another API call
-    # p = portal.call_portal(ner, update.message.chat.id)
+    p = portal.call_portal(ner, update.message.chat.id)
 
     # logger.info(f'Replying portal information ...')
 
     # Replying PORTAL back
-    # update.message.reply_text(c.INCIDENCE_WAITING_PORTAL)
+    update.message.reply_text(c.INCIDENCE_WAITING_PORTAL)
 
     # Ending conversation
     return fallback.retry(update, context)
