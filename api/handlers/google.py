@@ -46,7 +46,7 @@ class GoogleHandler(RequestHandler):
 
             config = types.RecognitionConfig(
                 encoding=enums.RecognitionConfig.AudioEncoding.OGG_OPUS,
-                sample_rate_hertz=16000,
+                sample_rate_hertz=48000,
                 language_code='pt-BR',
                 speech_contexts=[types.SpeechContext(
                       phrases=["$OPERAND caixas de fruttare limão",
