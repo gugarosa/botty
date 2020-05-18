@@ -1,10 +1,10 @@
-# Smart Bot: A Python-Inspired Telegram Bot
+# Botty: A Python-Inspired Telegram Bot
 
-## Welcome to Smart Bot.
+## Welcome to Botty.
 
 An easy-to-use solution to your botting needs. Firstly, implemented along the Telegram API, you can define your handlers and tasks. Lastly, you can also use your API. We offer both solutions and all the essential tools that you need in order to construct a bot. Please, follow along the next sections in order to learn more about this excellent tool.
 
-Smart Bot is compatible with: **Python 3.6**.
+Smart Bot is compatible with: **Python 3.6+**.
 
 ---
 
@@ -17,16 +17,16 @@ Smart Bot is compatible with: **Python 3.6**.
 
 ---
 
-## Getting started: 60 seconds with Smart Bot
+## Getting started: 60 seconds with Botty
 
 First of all. Code is all commented. Yes, they are commented. Just browse to any file, chose your subpackage, and follow it. We have high-level code for most tasks we could think of.
 
 Alternatively, if you wish to learn even more, please take a minute:
 
-Smart Bot is based on the following structure, and you should pay attention to its tree:
+Botty is based on the following structure, and you should pay attention to its tree:
 
 ```
-- smart_bot
+- botty
     - api
         - handlers
             - google
@@ -123,7 +123,7 @@ We will generate data. Any data, lots of data, it is up to you. Use this module 
 
 ## Installation
 
-We believe that everything has to be easy. Not tricky or daunting, Smart Bot will be the one-to-go package that you will need, from the very first installation to the daily-tasks implementing needs.
+We believe that everything has to be easy. Not tricky or daunting, Botty will be the one-to-go package that you will need, from the very first installation to the daily-tasks implementing needs.
 
 ### Development
 
@@ -243,6 +243,6 @@ No specific additional commands needed.
 
 ## Support
 
-We know that we do our best, but it is inevitable to acknowledge that we make mistakes. If you ever need to report a bug, report a problem, talk to us, please do so! We will be available at our bests at this repository or gth.rosa@uol.com.br.
+We know that we do our best, but it is inevitable to acknowledge that we make mistakes. If you ever need to report a bug, report a problem, talk to us, please do so! We will be available at our bests at this repository or gustavo.rosa@unesp.br.
 
 ---

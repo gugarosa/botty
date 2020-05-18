@@ -1,13 +1,12 @@
 import logging
 
 from google.cloud import speech
-from spacy import load
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado.web import Application
 
 from handlers.google import GoogleHandler
-from handlers.spacy import SpacyHandler
+from spacy import load
 
 # Enables logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -25,19 +24,17 @@ class Server(Application):
 
     """
 
-    def __init__(self, speech_client, spacy_model):
+    def __init__(self, speech_client):
         """Initializes the application.
 
         Args:
             speech_client (SpeechClient): A speech client from google.cloud.speech.
-            spacy_model (Spacy): A Spacy's already loaded model.
 
         """
 
         # Default API handlers
         handlers = [
-            (r'/google', GoogleHandler, dict(client=speech_client)),
-            (r'/spacy', SpacyHandler, dict(model=spacy_model))
+            (r'/google', GoogleHandler, dict(client=speech_client))
         ]
 
         # Bootstrap the Application class
@@ -51,12 +48,6 @@ if __name__ == '__main__':
     # Instantiates a Google's speech-to-text client
     speech_client = speech.SpeechClient()
 
-    # Loading model
-    logging.debug('Loading spacy model ...')
-
-    # Actually calling Spacy and loading the model
-    spacy_model = load('./api/models/kibon')
-
     # Logging important information
     logging.debug('Starting server ...')
 
@@ -66,7 +57,7 @@ if __name__ == '__main__':
         logging.info(f'Port: {PORT}')
 
         # Creates an application
-        app = HTTPServer(Server(speech_client, spacy_model))
+        app = HTTPServer(Server(speech_client))
 
         # Servers the application on desired port
         app.listen(PORT)

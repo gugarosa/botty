@@ -2,10 +2,10 @@
 FROM python:3.6-slim
 
 # Sets the work directory to desired
-WORKDIR /smart/
+WORKDIR /botty/
 
 # Copy desired files into desired container's directory
-COPY . /smart/bot
+COPY . /botty/bot
 
 # Creating a directory to hold saved voice files and saved transcripts
 RUN mkdir storage && mkdir storage/voices && mkdir storage/transcripts

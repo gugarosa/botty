@@ -9,9 +9,6 @@ from tornado.web import RequestHandler
 class GoogleHandler(RequestHandler):
     """A Google's handler class used to handle new requests to this part of the API.
 
-    Properties:
-        client (SpeechClient): A speech client from google.cloud.speech.
-
     """
 
     def initialize(self, **kwargs):
@@ -47,16 +44,8 @@ class GoogleHandler(RequestHandler):
             config = types.RecognitionConfig(
                 encoding=enums.RecognitionConfig.AudioEncoding.OGG_OPUS,
                 sample_rate_hertz=48000,
-                language_code='pt-BR',
-                speech_contexts=[types.SpeechContext(
-                      phrases=["$OPERAND caixas de fruttare limão",
-                        "$OPERAND caixas fruttare limão",
-                        "$OPERAND caixa de fruttare uva",
-                        "fruttare maracujá $OPERAND caixa"])]
-                )
-
-            # Detects speech in the audio file
-            #res = self.client.recognize(config, audio)
+                language_code='en-US'
+            )
 
             # Creates an operation to detects speech in a long audio file
             operation = self.client.long_running_recognize(config, audio)
