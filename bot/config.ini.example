@@ -1,17 +1,6 @@
 [BOT]
 TELEGRAM_KEY = <telegram's bot key>
 
-[AWS]
-ACCESS_KEY = <s3 bucket access key>
-SECRET_KEY = <s3 bucket secret key>
-BUCKET_URL = <s3 bucket url>
-
 [TASKS]
 GOOGLE = http://localhost:8080/google
 MOCK = https://app.fakejson.com/q
-SPACY = http://localhost:8080/spacy
-WEATHER = https://api.worldweatheronline.com/premium/v1/weather.ashx?
-
-[PORTAL]
-LOGIN = https://smart-portal-dev.netpartners.com.br/auth/login
-API = https://smart-portal-dev.netpartners.com.br/api
