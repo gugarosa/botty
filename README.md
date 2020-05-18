@@ -33,21 +33,16 @@ Botty is based on the following structure, and you should pay attention to its t
         - keys
     - bot
         - handlers
-            - common
             - entry
             - error
             - fallback
             - states
                 - await_options
-                - client
-                - incidence
-                - suggestion
+                - google
+                - mockup
         - tasks
-            - aws
             - google
             - mock
-            - spacy
-            - weather
         - utils
             - constants
             - transcript
