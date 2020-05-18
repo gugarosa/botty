@@ -1,7 +1,5 @@
 import logging
 
-from telegram import InputMediaPhoto
-
 from handlers import fallback
 from tasks import mock
 from utils import constants as c
@@ -29,17 +27,17 @@ def state(update, context):
 
     # Checks if API call was possible
     if result == None:
-        logger.warning(f'Client not found: {update.message.text}')
+        logger.warning(f'Mockup not found: {update.message.text}')
 
         # Replies text saying client was not found
-        update.message.reply_text(c.CLIENT_ERROR)
+        update.message.reply_text(c.MOCKUP_ERROR)
 
-        return 'CLIENT'
+        return 'MOCKUP'
 
-    logger.info(f'Client found. Replying its information ...')
+    logger.info(f'Mockup found. Replying its information ...')
 
     # Replying client's text
-    update.message.reply_html(c.CLIENT_RESPONSE.format(
+    update.message.reply_html(c.MOCKUP_RESPONSE.format(
         client=client, email=result['email'], phone=result['phone']))
 
     # Replying client's image

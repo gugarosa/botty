@@ -1,11 +1,10 @@
 import configparser
 import logging
 
+from handlers import entry, error, fallback
+from handlers.states import await_options, google, mockup
 from telegram.ext import (CommandHandler, ConversationHandler, Filters,
                           MessageHandler, Updater)
-
-from handlers import common, entry, error, fallback
-from handlers.states import await_options, client, incidence, suggestion
 from utils import constants as c
 
 # Enables logging
@@ -37,14 +36,12 @@ def init(key):
         ConversationHandler(
             entry_points=[
                 CommandHandler('start', entry.options, pass_user_data=True),
-                MessageHandler(Filters.regex(c.ENTRY_REGEX), entry.options,
-                               pass_user_data=True)
+                MessageHandler(Filters.regex(c.ENTRY_REGEX), entry.options, pass_user_data=True)
             ],
             states={
                 'AWAIT_OPTIONS': [MessageHandler(Filters.regex(c.AWAIT_OPTIONS_REGEX), await_options.state, pass_user_data=True)],
-                'CLIENT': [MessageHandler(Filters.text, client.state, pass_user_data=True)],
-                'INCIDENCE': [MessageHandler(Filters.voice, incidence.state, pass_user_data=True)],
-                'SUGGESTION': [MessageHandler(Filters.text, suggestion.state, pass_user_data=True)]
+                'MOCKUP': [MessageHandler(Filters.text, mockup.state, pass_user_data=True)],
+                'GOOGLE': [MessageHandler(Filters.voice, google.state, pass_user_data=True)]
             },
             fallbacks=[
                 CommandHandler('end', fallback.end),
@@ -52,10 +49,6 @@ def init(key):
             ]
         )
     )
-
-    # Adds a handler to save user location
-    dp.add_handler(MessageHandler(Filters.location,
-                                  common.location, pass_user_data=True))
 
     # Creates an error logging
     dp.add_error_handler(error.log)

@@ -4,3 +4,4 @@ TELEGRAM_KEY = <telegram's bot key>
 [TASKS]
 GOOGLE = http://localhost:8080/google
 MOCK = https://app.fakejson.com/q
+MOCK_TOKEN = <mockup api's token>
