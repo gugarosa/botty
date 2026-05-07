@@ -1,17 +1,19 @@
-# Using an official Python runtime as a parent image
-FROM python:3.6-slim
+FROM python:3.12-slim
 
-# Sets the work directory to desired
-WORKDIR /botty/
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
 
-# Copy desired files into desired container's directory
+WORKDIR /botty/bot
+
+COPY pyproject.toml /botty/bot/
+RUN pip install --upgrade pip && pip install .
+
 COPY . /botty/bot
 
-# Creating a directory to hold saved voice files and saved transcripts
-RUN mkdir storage && mkdir storage/voices && mkdir storage/transcripts
+RUN mkdir -p /botty/storage/voices /botty/storage/transcripts \
+    && useradd --create-home --uid 1000 botty \
+    && chown -R botty:botty /botty
+USER botty
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --trusted-host pypi.python.org -r bot/requirements.txt
-
-# Run bot.py when the container launches
-CMD ["python", "bot/bot.py"]
+CMD ["python", "bot.py"]

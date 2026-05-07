@@ -1,74 +1,59 @@
-import configparser
 import logging
 
+from telegram.ext import (
+    Application,
+    CommandHandler,
+    ConversationHandler,
+    MessageHandler,
+    filters,
+)
+
 from handlers import entry, error, fallback
-from handlers.states import await_options, google, mockup
-from telegram.ext import (CommandHandler, ConversationHandler, Filters,
-                          MessageHandler, Updater)
+from handlers.states import await_options, chat, mockup, speech
+from settings import settings
 from utils import constants as c
 
-# Enables logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
-
-# Gets the logging object
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+)
 logger = logging.getLogger(__name__)
 
 
-def init(key):
-    """Main process to initiate a customized bot needs.
+def build_app() -> Application:
+    if not settings.telegram_key:
+        raise RuntimeError("TELEGRAM_KEY is not set. Copy bot/.env.example to bot/.env.")
+    logger.info("Initializing the bot ...")
+    app = Application.builder().token(settings.telegram_key).build()
 
-    Args:
-        key (str): A string holding the Telegram's API bot key.
-
-    """
-
-    logger.info(f'Initializing the bot ...')
-
-    # Initializing base class with Bot's token
-    updater = Updater(key, use_context=True)
-
-    # Getting the dispatcher to attach new handlers
-    dp = updater.dispatcher
-
-    # Add conversation handler to handle bot's states
-    dp.add_handler(
+    app.add_handler(
         ConversationHandler(
             entry_points=[
-                CommandHandler('start', entry.options, pass_user_data=True),
-                MessageHandler(Filters.regex(c.ENTRY_REGEX), entry.options, pass_user_data=True)
+                CommandHandler("start", entry.options),
+                MessageHandler(filters.Regex(c.ENTRY_REGEX), entry.options),
             ],
             states={
-                'AWAIT_OPTIONS': [MessageHandler(Filters.regex(c.AWAIT_OPTIONS_REGEX), await_options.state, pass_user_data=True)],
-                'MOCKUP': [MessageHandler(Filters.text, mockup.state, pass_user_data=True)],
-                'GOOGLE': [MessageHandler(Filters.voice, google.state, pass_user_data=True)]
+                "AWAIT_OPTIONS": [
+                    MessageHandler(filters.Regex(c.AWAIT_OPTIONS_REGEX), await_options.state),
+                ],
+                "MOCKUP": [MessageHandler(filters.TEXT & ~filters.COMMAND, mockup.state)],
+                "SPEECH": [MessageHandler(filters.VOICE, speech.state)],
+                "CHAT": [MessageHandler(filters.TEXT & ~filters.COMMAND, chat.state)],
             },
             fallbacks=[
-                CommandHandler('end', fallback.end),
-                MessageHandler(Filters.regex(c.FALLBACK_REGEX), fallback.end)
-            ]
+                CommandHandler("end", fallback.end),
+                MessageHandler(filters.Regex(c.FALLBACK_REGEX), fallback.end),
+            ],
         )
     )
-
-    # Creates an error logging
-    dp.add_error_handler(error.log)
-
-    # Actually start the polling of new updates
-    updater.start_polling()
-
-    # Used to handle its idle state
-    updater.idle()
+    app.add_error_handler(error.log)
+    return app
 
 
-if __name__ == '__main__':
-    # Initializing configuration object
-    config = configparser.ConfigParser()
+def main() -> None:
+    app = build_app()
+    app.run_polling()
 
-    # Parsing a new config
-    config.read('bot/config.ini')
 
-    # Gathers the key
-    key = config.get('BOT', 'TELEGRAM_KEY')
-
-    # Initialize bot
-    init(key)
+if __name__ == "__main__":
+    main()

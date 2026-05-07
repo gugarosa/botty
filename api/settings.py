@@ -1,0 +1,22 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+
+    port: int = 8080
+
+    # Azure AI Speech
+    azure_speech_key: str = ""
+    azure_speech_region: str = ""
+    azure_speech_language: str = "en-US"
+
+    # Azure OpenAI
+    azure_openai_endpoint: str = ""
+    azure_openai_api_key: str = ""
+    azure_openai_api_version: str = "2024-10-21"
+    azure_openai_deployment: str = ""
+    azure_openai_system_prompt: str = "You are Botty, a helpful Telegram assistant. Keep replies concise."
+
+
+settings = Settings()

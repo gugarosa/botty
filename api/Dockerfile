@@ -1,17 +1,18 @@
-# Using an official Python runtime as a parent image
-FROM python:3.6-slim
+FROM python:3.12-slim
 
-# Defining environment variables
-ENV GOOGLE_APPLICATION_CREDENTIALS=/botty/api/keys/google.json
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
 
-# Sets the work directory to desired
-WORKDIR /botty/
+WORKDIR /botty/api
 
-# Copy desired files into desired container's directory
+COPY pyproject.toml /botty/api/
+RUN pip install --upgrade pip && pip install .
+
 COPY . /botty/api
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --trusted-host pypi.python.org -r api/requirements.txt
+RUN useradd --create-home --uid 1000 botty && chown -R botty:botty /botty
+USER botty
 
-# Run api.py when the container launches
-CMD ["python", "api/api.py"]
+EXPOSE 8080
+CMD ["python", "api.py"]

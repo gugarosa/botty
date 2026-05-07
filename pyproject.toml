@@ -1,0 +1,29 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["storage", ".venv"]
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "W",  # pycodestyle / pyflakes
+    "I",            # isort
+    "B",            # bugbear
+    "UP",           # pyupgrade
+    "ASYNC",        # async correctness
+    "SIM",          # simplify
+    "RUF",          # ruff-specific
+]
+ignore = [
+    "E501",  # line length (formatter handles it)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["settings", "handlers", "tasks", "utils"]
+
+[tool.mypy]
+python_version = "3.12"
+strict_optional = true
+warn_unused_ignores = true
+warn_return_any = true
+ignore_missing_imports = true
+

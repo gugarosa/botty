@@ -1,28 +1,14 @@
 import logging
+from pathlib import Path
 
-# Path to downkoad saved transcript files
-DOWNLOAD_PATH = 'storage/transcripts/'
-
-# Gets the logging object
 logger = logging.getLogger(__name__)
 
+DOWNLOAD_PATH = Path("storage/transcripts")
+DOWNLOAD_PATH.mkdir(parents=True, exist_ok=True)
 
-def save(id, transcript):
-    """Saves a newly transcripted voice message.
 
-    Args:
-        id (str): A string containing the id of the voice message.
-        transcript (str): A string containing the voice's transcription.
-
-    """
-
-    logger.info(f'Handling transcript saving ...')
-
-    # Gets its unique ID for naming the file
-    transcript_file = DOWNLOAD_PATH + id + '.txt'
-
-    # This will get the actual transcript and save to its file
-    with open(transcript_file, 'w') as txt:
-        print(f'{transcript}', file=txt)
-
-    logger.info(f'Transcript saved to {transcript_file}')
+def save(voice_id: str, transcript: str) -> None:
+    """Saves a transcripted voice message to disk."""
+    transcript_file = DOWNLOAD_PATH / f"{voice_id}.txt"
+    transcript_file.write_text(f"{transcript}\n", encoding="utf-8")
+    logger.info("Transcript saved to %s", transcript_file)

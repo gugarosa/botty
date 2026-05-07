@@ -5,11 +5,18 @@
 # Ubuntu's editor temp files
 **/*.*~
 
-# Configuration file
+# Configuration files
 config.ini
+.env
+.env.local
+.env.*.local
 
 # External API's keys
 api/keys/*.json
+
+# Tooling caches
+.ruff_cache/
+.pytest_cache/
 
 # Downloaded data
 storage/voices/*.ogg

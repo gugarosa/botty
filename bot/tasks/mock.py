@@ -1,55 +1,22 @@
-import configparser
-import json
+import logging
+import random
 
-import requests
+logger = logging.getLogger(__name__)
 
-# Initializing configuration object
-config = configparser.ConfigParser()
-
-# Parsing a new config
-config.read('bot/config.ini')
-
-# Gathers the mock's task endpoint
-MOCK_API = config.get('TASKS', 'MOCK')
-MOCK_TOKEN = config.get('TASKS', 'MOCK_TOKEN')
+_FAKE_AVATARS = [
+    "https://i.pravatar.cc/300?img=1",
+    "https://i.pravatar.cc/300?img=12",
+    "https://i.pravatar.cc/300?img=33",
+]
 
 
-def check_client(message):
-    """Performs a call to a mock API and verify if message exists.
-
-    Args:
-        text (str): A text to check whether it exists or not
-
-    Returns:
-        An already decoded JSON object holding the desired innformation.
-
-    """
-
-    # Data structure
-    payload = {
-        'token': MOCK_TOKEN,
-        'data': {
-            'id': message,
-            'avatar': 'personAvatar',
-            'email': 'internetEmail',
-            'phone': 'phoneHome'
-        }
+async def check_client(name: str) -> dict[str, str] | None:
+    """Returns a mock client record. Always succeeds for non-empty input."""
+    if not name.strip():
+        return None
+    slug = name.strip().lower().replace(" ", ".")
+    return {
+        "email": f"{slug}@example.com",
+        "phone": "+1-555-0100",
+        "avatar": random.choice(_FAKE_AVATARS),
     }
-
-    # Tries to perform the API call
-    try:
-        # POST request over the mocked API
-        r = requests.post(MOCK_API, json=payload)
-
-        # Decoding response
-        response = json.loads(r.text)
-
-        # Accessing JSON object and gathering request's response
-        result = response
-
-        return result
-
-    # If by any chance it fails
-    except:
-        # Raises a ConnectionError (this should be enough)
-        raise ConnectionError

@@ -1,18 +1,28 @@
-version: '3.8'
 services:
-    api:
-        build: './api'
-        ports:
-            - 8080:8080
-        volumes:
-            - storage:/botty/storage
-    bot:
-        build: './bot'
-        links:
-            - 'api'
-        depends_on:
-            - api
-        volumes:
-            - storage:/botty/storage
+  api:
+    build: ./api
+    env_file: ./api/.env
+    ports:
+      - "8080:8080"
+    volumes:
+      - storage:/botty/storage
+    networks:
+      - botty
+    restart: unless-stopped
+
+  bot:
+    build: ./bot
+    env_file: ./bot/.env
+    depends_on:
+      - api
+    volumes:
+      - storage:/botty/storage
+    networks:
+      - botty
+    restart: unless-stopped
+
+networks:
+  botty:
+
 volumes:
-    storage:
+  storage:

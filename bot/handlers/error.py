@@ -1,17 +1,12 @@
 import logging
 
-# Gets the logging object
+from telegram import Update
+from telegram.ext import ContextTypes
+
 logger = logging.getLogger(__name__)
 
 
-def log(update, context):
-    """Logs any errors caused by any updates.
-
-    Args:
-        update (Update): An update object, basically holding vital information from a new user interaction.
-        context (CallbackContext): A context object, if additional information is needed.
-
-    """
-
-    # Actually logs as a warning
-    logger.warning('Update "%s" caused error "%s"', update, context.error)
+async def log(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Logs any errors caused by updates."""
+    update_repr = update if isinstance(update, Update) else "<non-Update>"
+    logger.warning('Update "%s" caused error "%s"', update_repr, context.error)

@@ -1,69 +1,33 @@
 import logging
 
-from google.cloud import speech
-from tornado.httpserver import HTTPServer
-from tornado.ioloop import IOLoop
-from tornado.web import Application
+import uvicorn
+from fastapi import FastAPI
 
-from handlers.google import GoogleHandler
-from spacy import load
+from handlers import chat, speech
+from settings import settings
 
-# Enables logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.DEBUG)
-
-# Gets the logging object
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+)
 logger = logging.getLogger(__name__)
 
-# Port constant
-PORT = 8080
+
+def create_app() -> FastAPI:
+    app = FastAPI(title="Botty API", version="0.2.0")
+    app.include_router(speech.router)
+    app.include_router(chat.router)
+
+    @app.get("/health")
+    async def health() -> dict[str, str]:
+        return {"status": "ok"}
+
+    return app
 
 
-class Server(Application):
-    """A class to hold the actual server class.
-
-    """
-
-    def __init__(self, speech_client):
-        """Initializes the application.
-
-        Args:
-            speech_client (SpeechClient): A speech client from google.cloud.speech.
-
-        """
-
-        # Default API handlers
-        handlers = [
-            (r'/google', GoogleHandler, dict(client=speech_client))
-        ]
-
-        # Bootstrap the Application class
-        Application.__init__(self, handlers, debug=True, autoreload=True)
+app = create_app()
 
 
-if __name__ == '__main__':
-    # Loading Google's speech client
-    logging.debug('Loading speech client ...')
-
-    # Instantiates a Google's speech-to-text client
-    speech_client = speech.SpeechClient()
-
-    # Logging important information
-    logging.debug('Starting server ...')
-
-    # Tries to start a tornado webserver
-    try:
-        # Logs its port
-        logging.info(f'Port: {PORT}')
-
-        # Creates an application
-        app = HTTPServer(Server(speech_client))
-
-        # Servers the application on desired port
-        app.listen(PORT)
-
-        # Starts a IOLoop instance
-        IOLoop.instance().start()
-
-    except KeyboardInterrupt:
-        exit()
+if __name__ == "__main__":
+    logger.info("Starting Botty API on port %d", settings.port)
+    uvicorn.run("api:app", host="0.0.0.0", port=settings.port, reload=False)
